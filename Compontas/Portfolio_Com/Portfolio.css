@@ -1,0 +1,49 @@
+.portfolio {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .project-card {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .project-card img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+  }
+  
+  .project-card:hover img {
+    transform: scale(1.1);
+  }
+  
+  .project-details {
+    position: absolute;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    width: 100%;
+  }
+  
+  .project-card:hover .project-details {
+    opacity: 1;
+  }
+  .project-details .form-heading {
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+.project-details .txt-secondary {
+    line-height: 15px;
+    padding-bottom: 17px;
+}
+@media (max-width: 425px){
+  .portfolio {
+    grid-template-columns: auto ;
+  }
+}
