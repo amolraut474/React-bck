@@ -1,1 +1,120 @@
+import React, { useState } from 'react';
+import './Portfolio.css'; // Import your CSS file
+import { Link } from 'react-router-dom';
+
+const projects = [
+  {
+    id: 1,
+    title: 'Project 1',
+    Environment:'Wordpress',
+    description: 'Description for Project 1',
+    imageUrl: 'https://trion.kwst.net/dark/images/folio/1.jpg',
+    url: 'https://example.com/project1'
+  },
+  {
+    id: 2,
+    title: 'Project 2',
+    Environment:'Wordpress',
+    description: 'Description for Project 2',
+    imageUrl: 'https://trion.kwst.net/dark/images/folio/1.jpg',
+    url: ''
+  },
+  {
+    id: 2,
+    title: 'Project 2',
+    Environment:'HTML CSS',
+    description: 'Description for Project 2',
+    imageUrl: 'https://trion.kwst.net/dark/images/folio/1.jpg',
+    url: ''
+  },
+  {
+    id: 2,
+    title: 'Project 2',
+    Environment:'Shopify',
+    description: 'Description for Project 2',
+    imageUrl: 'https://trion.kwst.net/dark/images/folio/1.jpg',
+    url: ''
+  },
+  {
+    id: 1,
+    title: 'Project 1',
+    Environment:'Shopify',
+    description: 'Description for Project 1',
+    imageUrl: 'https://trion.kwst.net/dark/images/folio/1.jpg',
+    url: 'https://example.com/project1'
+  },
+  {
+    id: 1,
+    title: 'Project 1',
+    Environment:'Shopify',
+    description: 'Description for Project 1',
+    imageUrl: 'https://trion.kwst.net/dark/images/folio/1.jpg',
+    url: 'https://example.com/project1'
+  },
+  {
+    id: 1,
+    title: 'Project 1',
+    Environment:'Shopify',
+    description: 'Description for Project 1',
+    imageUrl: 'https://trion.kwst.net/dark/images/folio/1.jpg',
+    url: 'https://example.com/project1'
+  },
+  {
+    id: 1,
+    title: 'Project 1',
+    Environment:'Shopify',
+    description: 'Description for Project 1',
+    imageUrl: 'https://trion.kwst.net/dark/images/folio/1.jpg',
+    url: 'https://example.com/project1'
+  },
+  {
+    id: 1,
+    title: 'Project 1',
+    Environment:'HTML',
+    description: 'Description for Project 1',
+    imageUrl: 'https://trion.kwst.net/dark/images/folio/1.jpg',
+    url: 'https://example.com/project1'
+  },
+  // Add more projects as needed
+];
+
+const PortfolioSection = () => {
+  const [selectedEnvironment, setSelectedEnvironment] = useState('All');
+
+  const handleEnvironmentChange = (environment) => {
+    setSelectedEnvironment(environment);
+  };
+
+  const filteredProjects = selectedEnvironment === 'All' ? projects : projects.filter(project => project.Environment === selectedEnvironment);
+
+  return (
+    <div className='portfolio-section-container'>
+       {/* Filter buttons */}
+       <div className="filter-buttons">
+        <button onClick={() => handleEnvironmentChange('All')}>All</button>
+        <button onClick={() => handleEnvironmentChange('Wordpress')}>Wordpress</button>
+        <button onClick={() => handleEnvironmentChange('HTML CSS')}>HTML CSS</button>
+        <button onClick={() => handleEnvironmentChange('Shopify')}>Shopify</button>
+        <button onClick={() => handleEnvironmentChange('HTML')}>HTML</button>
+      </div>
+    <div className="portfolio">
+     
+
+      {/* Projects */}
+      {filteredProjects.map(project => (
+        <div key={project.id} className="project-card">
+          <img src={project.imageUrl} alt={project.title} />
+          <div className="project-details">
+            <h3 className='form-heading'>{project.title}</h3>
+            <p className="txt-secondary">{project.description}</p>
+            <Link to={project.url} className="cus-inner-head-link color-bg">Visit Project</Link> 
+          </div>
+        </div>
+      ))}
+    </div>
+    </div>
+  );
+};
+
+export default PortfolioSection;
 
