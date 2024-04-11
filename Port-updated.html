@@ -80,26 +80,41 @@ const projects = [
 
 const PortfolioSection = () => {
   const [selectedEnvironment, setSelectedEnvironment] = useState('All');
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768); // Check if mobile view initially
 
   const handleEnvironmentChange = (environment) => {
     setSelectedEnvironment(environment);
   };
+
+  const handleResize = () => {
+    setIsMobileView(window.innerWidth <= 768); // Update mobile view state on resize
+  };
+
+  window.addEventListener('resize', handleResize); // Listen for resize events
 
   const filteredProjects = selectedEnvironment === 'All' ? projects : projects.filter(project => project.Environment === selectedEnvironment);
 
   return (
     <div className='portfolio-section-container'>
        {/* Filter buttons */}
-       <div className="filter-buttons">
-        <button onClick={() => handleEnvironmentChange('All')}>All</button>
-        <button onClick={() => handleEnvironmentChange('Wordpress')}>Wordpress</button>
-        <button onClick={() => handleEnvironmentChange('HTML CSS')}>HTML CSS</button>
-        <button onClick={() => handleEnvironmentChange('Shopify')}>Shopify</button>
-        <button onClick={() => handleEnvironmentChange('HTML')}>HTML</button>
-      </div>
+       {isMobileView ? (
+        <select value={selectedEnvironment} onChange={(e) => handleEnvironmentChange(e.target.value)}>
+          <option value="All">All</option>
+          <option value="Wordpress">Wordpress</option>
+          <option value="HTML CSS">HTML CSS</option>
+          <option value="Shopify">Shopify</option>
+          <option value="HTML">HTML</option>
+        </select>
+       ) : (
+        <div className="filter-buttons">
+          <button onClick={() => handleEnvironmentChange('All')}>All</button>
+          <button onClick={() => handleEnvironmentChange('Wordpress')}>Wordpress</button>
+          <button onClick={() => handleEnvironmentChange('HTML CSS')}>HTML CSS</button>
+          <button onClick={() => handleEnvironmentChange('Shopify')}>Shopify</button>
+          <button onClick={() => handleEnvironmentChange('HTML')}>HTML</button>
+        </div>
+       )}
     <div className="portfolio">
-     
-
       {/* Projects */}
       {filteredProjects.map(project => (
         <div key={project.id} className="project-card">
@@ -118,3 +133,103 @@ const PortfolioSection = () => {
 
 export default PortfolioSection;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------Port-css-----------------------
+
+.portfolio-section-container {
+  padding: 0px 30px;
+}
+
+.filter-buttons button {
+  padding: 17px 50px;
+  background: #35353A;
+  color: #fff;
+  border-right: 1px solid #eee;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.filter-buttons button:hover {
+  color: #f7b90f;
+}
+
+.filter-buttons {
+  margin-bottom: 20px;
+}
+
+.filter-buttons button:active {
+  background: #f7b90f;
+  color: #000;
+}
+
+.portfolio-section-container select {
+  width: 100%;
+  padding: 20px 11px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #000;
+  cursor: pointer;
+  background: #35353A;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  color: #fff;
+  margin: 30px 0px;
+}
+.portfolio-section-container option {
+  background: #35353A;
+}
+.portfolio-section-container select.select\:focus-visible {
+  outline: none;
+}
+
+
+-------------------newsletter-------------------------------------
+.newsletter button.btn {
+    padding: 16px 50px;
+    border-radius: 0;
+}
+
+
+
+-------------About---------------------------------------------------
+.Story-row::after {
+    content: "+";
+    position: absolute;
+    top: 13%;
+    left: -6px;
+    color: #000;
+    width: 15px;
+    font-size: 20px;
+    height: 20px;
+    margin-top: -5px;
+    border-radius: 100%;
+    z-index: 2;
+}
+.Story-row:before {
+    content: "";
+    position: absolute;
+    top: 14%;
+    left: -21px;
+    width: 30px;
+    height: 30px;
+    margin-top: -20px;
+    border-radius: 100%;
+    background: #fff;
+    border: 6px solid #F7B90F;
+    z-index: 1;
+}
