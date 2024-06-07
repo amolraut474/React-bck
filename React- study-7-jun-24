@@ -3,18 +3,127 @@ Question 1
 
 Write a react component in jsx that will display 60 blacksqaures across 6 rows. Every sec, make one black sqaure turn white. Once every square is white turn them back to black squares and restart the process.
 
-Answer Question
+Answer Question:-
+import React, { useState, useEffect } from 'react';
+
+const Square = ({ isWhite }) => (
+  <div style={{ width: '50px', height: '50px', backgroundColor: isWhite ? 'white' : 'black', border: '1px solid black' }}></div>
+);
+
+const App = () => {
+  const [squares, setSquares] = useState(Array(60).fill(false));
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const randomIndex = Math.floor(Math.random() * squares.length);
+      setSquares(prevSquares => {
+        const newSquares = [...prevSquares];
+        newSquares[randomIndex] = !newSquares[randomIndex];
+        return newSquares;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [squares]);
+
+  useEffect(() => {
+    const allWhite = squares.every(square => square);
+    if (allWhite) {
+      setSquares(Array(60).fill(false));
+    }
+  }, [squares]);
+
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 50px)', gridAutoRows: '50px', gap: '2px' }}>
+      {squares.map((isWhite, index) => <Square key={index} isWhite={isWhite} />)}
+    </div>
+  );
+};
+
+export default App;
+
 
 Question 2
 
 Write a react component in jsx that will display a button containing number on click the number will increase by 3 and buttons color should change randomly
 
 Answer Question
+:-
+import React, { useState } from 'react';
 
-→
+const Button = ({ onClick, number }) => {
+  const [color, setColor] = useState('#000000');
+
+  const handleClick = () => {
+    onClick();
+    setColor(`#${Math.floor(Math.random()*16777215).toString(16)}`);
+  };
+
+  return (
+    <button style={{ backgroundColor: color }} onClick={handleClick}>{number}</button>
+  );
+};
+
+const App = () => {
+  const [number, setNumber] = useState(0);
+
+  const handleClick = () => {
+    setNumber(prevNumber => prevNumber + 3);
+  };
+
+  return (
+    <div>
+      <Button onClick={handleClick} number={number} />
+    </div>
+  );
+};
+
+export default App;
+
 
 Question 3
 
 Write a react component containing a list of six words followed bt an input, input should take a string which will be shown in the list. onclick the last letter will be the first in first list and so on example: input=> Hello There eHello Ther reHello The ereHello Th hereHello T ThereHEllo
 
-Answer Question
+Answer Question:-
+import React, { useState } from 'react';
+
+const App = () => {
+  const [input, setInput] = useState('');
+  const [words, setWords] = useState([]);
+
+  const handleInputChange = (event) => {
+    setInput(event.target.value);
+  };
+
+  const handleAddWord = () => {
+    if (input.trim() !== '') {
+      setWords(prevWords => [...prevWords, input]);
+      setInput('');
+    }
+  };
+
+  const handleReverseWords = () => {
+    setWords(prevWords => {
+      const reversedWords = prevWords.map(word => {
+        const lastLetter = word.slice(-1);
+        const newWord = lastLetter + word.slice(0, -1);
+        return newWord;
+      });
+      return reversedWords;
+    });
+  };
+
+  return (
+    <div>
+      <ul>
+        {words.map((word, index) => <li key={index}>{word}</li>)}
+      </ul>
+      <input type="text" value={input} onChange={handleInputChange} />
+      <button onClick={handleAddWord}>Add Word</button>
+      <button onClick={handleReverseWords}>Reverse Words</button>
+    </div>
+  );
+};
+
+export default App;
+
