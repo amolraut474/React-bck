@@ -1,1 +1,20 @@
-react
+
+Question 1
+
+Write a react component in jsx that will display 60 blacksqaures across 6 rows. Every sec, make one black sqaure turn white. Once every square is white turn them back to black squares and restart the process.
+
+Answer Question
+
+Question 2
+
+Write a react component in jsx that will display a button containing number on click the number will increase by 3 and buttons color should change randomly
+
+Answer Question
+
+→
+
+Question 3
+
+Write a react component containing a list of six words followed bt an input, input should take a string which will be shown in the list. onclick the last letter will be the first in first list and so on example: input=> Hello There eHello Ther reHello The ereHello Th hereHello T ThereHEllo
+
+Answer Question
